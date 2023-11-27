@@ -219,7 +219,7 @@ class ReactQuill extends React.Component<ReactQuillProps, ReactQuillState> {
     if ('value' in nextProps) {
       const prevContents = this.getEditorContents();
       const nextContents = nextProps.value ?? '';
-
+console.info('nextContents, prevContents',{nextContents, prevContents})
       // NOTE: Seeing that Quill is missing a way to prevent edits, we have to
       //       settle for a hybrid between controlled and uncontrolled mode. We
       //       can't prevent the change, but we'll still override content
@@ -278,6 +278,7 @@ class ReactQuill extends React.Component<ReactQuillProps, ReactQuillState> {
       delete this.regenerationSnapshot;
       this.instantiateEditor();
       const editor = this.editor!;
+      console.info('delta',delta);
       editor.setContents(delta);
       postpone(() => this.setEditorSelection(editor, selection));
     }
@@ -381,6 +382,7 @@ class ReactQuill extends React.Component<ReactQuillProps, ReactQuillState> {
   around so that the cursor won't move.
   */
   setEditorContents(editor: Quill, value: Value) {
+    console.info('setEditorContents',value)
     this.value = value;
     const sel = this.getEditorSelection();
     if (typeof value === 'string') {
